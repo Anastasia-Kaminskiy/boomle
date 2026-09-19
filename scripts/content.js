@@ -1,16 +1,34 @@
-function renderReadingTime(element) {
-  // Stop if the element doesn't exist on this website
+function blurAIOverview(element) {
   if (!element) {
-    console.log("m-x-content not found on this page");
+    console.log("ai overview element was not found in this page");
     return; 
   }
   
-  element.style.filter = "blur(5px)";
-}
+  element.style.filter = "blur(2px) opacity(0.7)";
+  element.inert = true;
 
-const targetElement = document.getElementById("m-x-content");
+  var wrapper = document.createElement('div');
+  wrapper.classList.add("wraapper");
+  wrapper.appendChild(element.cloneNode(true)); 
+  element.parentNode.replaceChild(wrapper, element);
+};
+
+const cssRules = `
+.wraapper {
+    background: red;
+};
+`;
+
+const style = document.createElement('style');
+
+style.textContent = cssRules;
+style.id = "custom"
+
+document.head.append(style);
+
+const targetElement = document.getElementById("dEwkXc");
 
 
-renderReadingTime(targetElement);
+blurAIOverview(targetElement);
 
 // V3qe9d
