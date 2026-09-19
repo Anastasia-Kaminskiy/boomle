@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "node watch.mjs"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Boomle",
+  "description": "Basically circumcising google so we don't feel like our brains are completely rotting from the inside",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "old_chrome.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://www.google.com/*"
+      ]
+    }
+  ]
+}
