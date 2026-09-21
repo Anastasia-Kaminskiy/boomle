@@ -15,7 +15,7 @@ const logRebuildPlugin = {
 };
 
 const ctx = await esbuild.context({
-  entryPoints: ['src/popup.jsx'],
+  entryPoints: ['src/popup.jsx', 'scripts/content.jsx'],
   
   bundle: true,
   
