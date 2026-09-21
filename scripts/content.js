@@ -1,9 +1,4 @@
 function blurAIOverview(element) {
-  if (!element) {
-    console.log("ai overview element was not found in this page");
-    return; 
-  }
-  
   element.style.filter = "blur(2px) opacity(0.7)";
   element.inert = true;
 
