@@ -3,27 +3,40 @@ import { createRoot } from 'react-dom/client';
 import parse from 'html-react-parser';
 import { OverviewBlocker } from '../src/overviewBlocker/overviewBlocker';
 
-const setGlobalCss = () => {
-    const cssRules = `
-        .container::-webkit-scrollbar { 
-            display: none;
-        };
-    `;
+const waitForElementById = (id: string) : Promise<HTMLElement> => {
+    return new Promise((resolve) => {
+        const existingElement = document.getElementById(id);
+        if (existingElement) {
+            return resolve(existingElement);
+        }
 
-    const style = document.createElement('style');
+        const observer = new MutationObserver((_, obs) => {
+            const targetElement = document.getElementById(id);
+            if (targetElement) {
+                obs.disconnect();
+                resolve(targetElement);
+            }
+        });
 
-    style.textContent = cssRules;
-    style.id = "nastia-was-here";
+        observer.observe(document.body || document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
 
-    document.head.append(style);
+const main = async () => {
+    const aiOverviewBody = await waitForElementById("m-x-content");
+
+    const aiOverviewRoot = aiOverviewBody?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement;
+    console.log(aiOverviewBody);
+
+    if (aiOverviewRoot){
+        const root = createRoot(aiOverviewRoot);
+        const aiOveviewContent = parse(aiOverviewRoot.innerHTML); // html to react element
+        
+        root.render(<OverviewBlocker>{aiOveviewContent}</OverviewBlocker>);
+    };
 };
 
-const aiOverviewBody = document.getElementById("m-x-content");
-const aiOverviewRoot = aiOverviewBody?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement;
-
-if (aiOverviewRoot){
-    setGlobalCss();
-
-    const root = createRoot(aiOverviewRoot);
-    root.render(<OverviewBlocker>{parse(aiOverviewRoot.innerHTML)}</OverviewBlocker>);
-};
+main();
