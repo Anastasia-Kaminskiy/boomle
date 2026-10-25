@@ -6,18 +6,17 @@ import { SxProps } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
 interface overviewBlockerProps extends React.PropsWithChildren {
-
+    setDisabledBlock: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export const OverviewBlocker = ({ children } : overviewBlockerProps) => {
-    const [isDisabledBlock, setDisabledBlock] = useState<boolean>(false);
-    useEffect(() => {
-        console.log(`${isDisabledBlock}`)
-    });
+export const OverviewBlocker = ({ setDisabledBlock, children } : overviewBlockerProps) => {
+    // useEffect(() => {
+    //     console.log(`${isDisabledBlock}`)
+    // });
 
-    if (isDisabledBlock) {
-        return (children);
-    }
+    // if (isDisabledBlock) {
+    //     return (<div>{children}</div>);
+    // }
     
     return (
         <Box sx={blockerSx}>

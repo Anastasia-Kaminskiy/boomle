@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import parse from 'html-react-parser';
 import { OverviewBlocker } from '../src/overviewBlocker/overviewBlocker';
@@ -23,19 +23,22 @@ const waitForElementById = (id: string) : Promise<HTMLElement> => {
             subtree: true
         });
     });
-}
+};
+
 
 const main = async () => {
-    const aiOverviewBody = await waitForElementById("m-x-content");
+    const [isDisabledBlock, setDisabledBlock] = useState<boolean>(false); // use event listeners instead
+    // with: new CustomEvent('myBooleanUpdate', { detail: { newValue: isActive } }); window.dispatchEvent(event);
+    
+    const aiOverviewBody = await waitForElementById("m-x-content"); 
 
     const aiOverviewRoot = aiOverviewBody?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.parentElement;
-    console.log(aiOverviewBody);
 
-    if (aiOverviewRoot){
+    if (aiOverviewRoot && !isDisabledBlock){
         const root = createRoot(aiOverviewRoot);
         const aiOveviewContent = parse(aiOverviewRoot.innerHTML); // html to react element
         
-        root.render(<OverviewBlocker>{aiOveviewContent}</OverviewBlocker>);
+        root.render(<OverviewBlocker setDisabledBlock={setDisabledBlock}>{aiOveviewContent}</OverviewBlocker>);
     };
 };
 
