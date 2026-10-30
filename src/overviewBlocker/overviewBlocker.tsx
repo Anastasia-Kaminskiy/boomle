@@ -5,11 +5,10 @@ import Typography from '@mui/material/Typography';
 import { SxProps } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-interface overviewBlockerProps extends React.PropsWithChildren {
-    setDisabledBlock: React.Dispatch<React.SetStateAction<boolean>>
-};
 
-export const OverviewBlocker = ({ setDisabledBlock, children } : overviewBlockerProps) => {
+export const OverviewBlocker = ({ children } : React.PropsWithChildren) => {
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
     // useEffect(() => {
     //     console.log(`${isDisabledBlock}`)
     // });
@@ -17,6 +16,16 @@ export const OverviewBlocker = ({ setDisabledBlock, children } : overviewBlocker
     // if (isDisabledBlock) {
     //     return (<div>{children}</div>);
     // }
+
+    const setDisabledBlock = (state: boolean) => {
+        const disableToggleEvent = new CustomEvent("disableAiToggle", { detail: {
+            isBlockDisabled: state
+        } });
+
+        window.dispatchEvent(disableToggleEvent);
+        setIsDisabled(state);
+    };
+
     
     return (
         <Box sx={blockerSx}>
