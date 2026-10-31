@@ -9,14 +9,6 @@ import Button from '@mui/material/Button';
 export const OverviewBlocker = ({ children } : React.PropsWithChildren) => {
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     console.log(`${isDisabledBlock}`)
-    // });
-
-    // if (isDisabledBlock) {
-    //     return (<div>{children}</div>);
-    // }
-
     const setDisabledBlock = (state: boolean) => {
         const disableToggleEvent = new CustomEvent("disableAiToggle", { detail: {
             isBlockDisabled: state
